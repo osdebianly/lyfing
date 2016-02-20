@@ -35,5 +35,6 @@ return [
         'it'    => ['it', 'it_IT'],
         'pt-BR' => ['pt_BR', 'pt_BR'],
         'sv'    => ['sv', 'sv_SE'],
+        'zh' => ['zh', 'zh_CN']
     ],
 ];

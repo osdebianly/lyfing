@@ -23,12 +23,12 @@ return [
 
     'frontend' => [
         'dashboard' => 'Dashboard',
-        'home' => 'Home',
-        'client' => 'Client Download',
-        'code' => 'Invite Code',
-        'login' => 'Login',
+        'home' => '首页',
+        'client' => '客户端',
+        'code' => '邀请码',
+        'login' => '登陆',
         'macros' => 'Macros',
-        'register' => 'Register',
+        'register' => '注册',
 
         'user' => [
             'administration' => 'Administration',

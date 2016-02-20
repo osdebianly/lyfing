@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\InviteCode;
 use App\Http\Controllers\Controller;
 
 /**
@@ -28,5 +29,22 @@ class FrontendController extends Controller
     public function macros()
     {
         return view('frontend.macros');
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function client()
+    {
+        return view('frontend.client');
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function code()
+    {
+        $codes = InviteCode::getPublicCode();
+        return view('frontend.code', ['codes' => $codes]);
     }
 }

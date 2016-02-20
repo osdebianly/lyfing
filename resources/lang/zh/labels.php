@@ -124,10 +124,7 @@ return [
     ],
 
     'frontend' => [
-        'code' => [
-            'invite_code' => 'Invite Code',
-            'state' => 'State'
-        ],
+
         'auth' => [
             'login_box_title' => 'Login',
             'login_button' => 'Login',

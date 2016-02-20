@@ -1,29 +1,31 @@
 <?php
 
-namespace App\Models\Access\User;
+namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use App\Helpers\Tools;
-use App\Models\Access\User\Traits\UserAccess;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Access\User\Traits\Attribute\UserAttribute;
-use App\Models\Access\User\Traits\Relationship\UserRelationship;
 
-/**
- * Class User
- * @package App\Models\Access\User
- */
-class User extends Authenticatable
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-
-    use SoftDeletes, UserAccess, UserAttribute, UserRelationship;
+    use Authenticatable, CanResetPassword;
 
     /**
-     * The attributes that are not mass assignable.
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $fillable = ['name', 'email', 'password', 'passwd', 'image', 'transfer_enable', 'port', 'method', 'role'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -33,10 +35,17 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
 
     /**
-     * @var array
+     * One to one relation
      */
-    protected $dates = ['deleted_at'];
+    public function userRoles()
+    {
+        return $this->hasOne('App\UserRoles', 'user_id', 'id');
+    }
 
+    /**
+     * 签到检查
+     * @return bool
+     */
     public function isAbleToCheckin()
     {
         $last = $this->last_check_in_time;
@@ -132,4 +141,6 @@ class User extends Authenticatable
             $this->port = Tools::getPort($port);
         return $this->save();
     }
+
+
 }

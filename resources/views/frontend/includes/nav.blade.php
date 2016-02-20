@@ -21,7 +21,9 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 <li>{!! link_to_route('frontend.index', trans('navs.frontend.home')) !!}</li>
-                <li>{!! link_to_route('frontend.macros', trans('navs.frontend.macros')) !!}</li>
+                <li>{!! link_to_route('frontend.client',trans('navs.frontend.client')) !!}</li>
+                <li>{!! link_to_route('frontend.code',trans('navs.frontend.code')) !!}</li>
+                {{--                <li>{!! link_to_route('frontend.macros', trans('navs.frontend.macros')) !!}</li>--}}
             </ul>
 
             <!-- Right Side Of Navbar -->

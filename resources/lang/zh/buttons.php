@@ -13,12 +13,12 @@ return [
     |
     */
     'frontend' => [
-        'local_download' => 'Local Download',
-        'github_download' => 'GITHUB Dowload',
-        'sourceforge_download' => 'Sourceforge Download',
-        'googleplay_download' => 'Play Store',
-        'appstore_download' => 'AppStore ',
-        'break_download' => 'Break Download'
+        'local_download' => '本地下载',
+        'github_download' => 'GITHUB下载',
+        'sourceforge_download' => 'Sourceforge下载',
+        'googleplay_download' => 'Play 商店',
+        'appstore_download' => 'AppStore 商店',
+        'break_download' => '越狱下载'
     ],
 
     'backend' => [

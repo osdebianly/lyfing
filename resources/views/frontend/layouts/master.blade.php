@@ -39,6 +39,6 @@
         {!! Html::script(elixir('js/frontend.js')) !!}
         @yield('after-scripts-end')
 
-        @include('includes.partials.ga')
+        {{--@include('includes.partials.ga')--}}
     </body>
 </html>
