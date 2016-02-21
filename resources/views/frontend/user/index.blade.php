@@ -67,18 +67,28 @@
             </div><!-- /.col (right) -->
 
             <div class="col-md-6">
-                <div class="box box-solid">
-                    <div class="box-header">
-                        <h3 class="box-title">连接信息</h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <p>服务器ip：<code>{{$server_ip}}</code></p>
-                        <p> 端口：<code>{{$user->port}}</code></p>
-                        <p> 密码：<code>{{$user->passwd}}</code></p>
-                        <p> 自定义加密：<code>{{$user->method}}</code></p>
-                        <p> 最后使用时间：{{date('Y-m-d H:i:s',$user->t)}} </p>
-                    </div><!-- /.box-body -->
-                </div><!-- /.box -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box box-solid">
+                            <div class="box-header">
+                                <h3 class="box-title">连接信息</h3>
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <p>服务器ip：<code>{{$server_ip}}</code></p>
+                                <p> 端口：<code>{{$user->port}}</code></p>
+                                <p> 密码：<code>{{$user->passwd}}</code></p>
+                                <p> 自定义加密：<code>{{$user->method}}</code></p>
+                                <p> 最后使用时间：{{date('Y-m-d H:i:s',$user->t)}} </p>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div>
+                    <div class="col-md-6">
+                        <div class="img-responsive center-block">
+                            {!! QrCode::size(200)->generate("ss://".base64_encode($user->method.':'.$user->passwd.'@'.$server_ip.':'.$user->port)) !!}
+                        </div>
+                    </div>
+                </div>
+
             </div><!-- /.col (right) -->
         </div><!-- /.row -->
         <!-- END PROGRESS BARS -->

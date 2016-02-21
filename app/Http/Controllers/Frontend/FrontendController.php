@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\InviteCode;
+use App\Models\InviteCode;
+use App\Models\Access\User\User;
+use App\Helpers\Tools;
 use App\Http\Controllers\Controller;
 
 /**
@@ -19,8 +21,11 @@ class FrontendController extends Controller
         javascript()->put([
             'test' => 'it works!',
         ]);
-
-        return view('frontend.index');
+        $server_ip = Tools::getCurrentServerIP();
+        $publicUser = User::where('email', 'admin@admin.com')->first();
+        $ssContent = $publicUser->method . ':' . $publicUser->passwd . '@' . $server_ip . ':' . $publicUser->port;
+        $publicSS = "ss://" . base64_encode($ssContent);
+        return view('frontend.index', ['publicSS' => $publicSS, 'user' => $publicUser]);
     }
 
     /**
