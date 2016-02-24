@@ -19,7 +19,7 @@
                                 </div>
                                 <h3>
                                     公共账号信息
-                                    <small>（每天更换密码）</small>
+                                    <small>（密码不定期更换）</small>
                                 </h3>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -54,16 +54,16 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
-                <blockquote class="pull-right">
-                    <p>
-                        <small>
-                            这是最好的时代，这是最坏的时代，这是智慧的时代，这是愚蠢的时代；这是信仰的时期，这是怀疑的时期；这是光明的季节，这是黑暗的季节
-                        </small>
-                    </p>
-                    <small>狄更斯 <cite>《双城记》</cite></small>
-                </blockquote>
-            </div>
+            {{--<div class="col-md-12">--}}
+            {{--<blockquote class="pull-right">--}}
+            {{--<p>--}}
+            {{--<small>--}}
+            {{--这是最好的时代，这是最坏的时代，这是智慧的时代，这是愚蠢的时代；这是信仰的时期，这是怀疑的时期；--}}
+            {{--</small>--}}
+            {{--</p>--}}
+            {{--<small>狄更斯 <cite>《双城记》</cite></small>--}}
+            {{--</blockquote>--}}
+            {{--</div>--}}
         </div>
     </div>
 @endsection
