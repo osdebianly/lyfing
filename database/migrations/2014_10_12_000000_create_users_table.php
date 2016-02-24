@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
             //python ss
             $table->integer('port')->unique();
-            $table->string('method', 64)->default('rc4-md5');
+            $table->string('method', 64)->default('aes-128-cfb');
             $table->string('passwd'); //method password
             $table->integer('t')->default(0);     //最后使用ss时间
             $table->bigInteger('u')->default(0);

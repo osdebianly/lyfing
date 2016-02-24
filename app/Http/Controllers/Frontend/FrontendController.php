@@ -22,7 +22,7 @@ class FrontendController extends Controller
             'test' => 'it works!',
         ]);
         $server_ip = Tools::getCurrentServerIP();
-        $publicUser = User::where('email', 'admin@admin.com')->first();
+        $publicUser = User::where('email', 'public@public.com')->first();
         $ssContent = $publicUser->method . ':' . $publicUser->passwd . '@' . $server_ip . ':' . $publicUser->port;
         $publicSS = "ss://" . base64_encode($ssContent);
         return view('frontend.index', ['publicSS' => $publicSS, 'user' => $publicUser]);

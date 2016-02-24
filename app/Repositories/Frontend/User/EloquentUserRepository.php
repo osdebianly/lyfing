@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Frontend\User;
 
+use App\Helpers\Tools;
 use App\Models\Access\User\User;
 use Illuminate\Support\Facades\Mail;
 use App\Exceptions\GeneralException;
@@ -80,6 +81,9 @@ class EloquentUserRepository implements UserContract
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed' => 1,
                 'status' => 1,
+                'passwd' => $data['password'],
+                'port' => Tools::getPort(),
+                'transfer_enable' => env('INIT_FLOW', 1073741824)
             ]);
         } else {
             $user = User::create([
@@ -89,6 +93,9 @@ class EloquentUserRepository implements UserContract
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed' => config('access.users.confirm_email') ? 0 : 1,
                 'status' => 1,
+                'passwd' => $data['password'],
+                'port' => Tools::getPort(),
+                'transfer_enable' => env('INIT_FLOW', 1073741824)
             ]);
         }
 

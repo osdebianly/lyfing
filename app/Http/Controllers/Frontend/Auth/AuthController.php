@@ -23,7 +23,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/user';
 
     /**
      * Where to redirect users after they logout

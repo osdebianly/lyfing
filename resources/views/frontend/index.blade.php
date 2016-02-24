@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <p>
-                                    <a class="btn btn-primary" href="/register">注册单独账号</a>
+                                    <a class="btn btn-primary btn-block" href="/register">注册</a>
                                 </p>
                             </div>
                         </div>

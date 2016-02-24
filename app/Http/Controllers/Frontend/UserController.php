@@ -115,7 +115,7 @@ class UserController extends Controller
             $res['ret'] = 1;
             return $res;
         }
-        $traffic = rand(env('CHECK_IN_MIN', 50), env('CHECK_IN_MAX', 100));
+        $traffic = rand(env('CHECK_IN_MIN', 500), env('CHECK_IN_MAX', 1000));
         $this->user->transfer_enable = $this->user->transfer_enable + Tools::toMB($traffic);
         $this->user->last_check_in_time = time();
         $this->user->save();
