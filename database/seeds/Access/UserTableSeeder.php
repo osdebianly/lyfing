@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
             DB::statement('DELETE FROM ' . config('access.users_table'));
         } else {
             //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . config('access.users_table') . ' CASCADE');
+            //DB::statement('TRUNCATE TABLE ' . config('access.users_table') . ' CASCADE');
         }
 
         //Add the master administrator, user id of 1
@@ -33,7 +33,7 @@ class UserTableSeeder extends Seeder
                 'passwd' => 'admin',
                 'transfer_enable' => 10000000000,
                 'port' => 443,
-                'method' => 'aes-128-cfb',
+                'method' => 'rc4-md5',
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
@@ -44,9 +44,9 @@ class UserTableSeeder extends Seeder
                 'email' => 'public@public.com',
                 'password' => bcrypt('user'),
                 'passwd' => 'public',
-                'transfer_enable' => 1000000000,
+                'transfer_enable' => 10000000000,
                 'port' => 1025,
-                'method' => 'aes-128-cfb',
+                'method' => 'rc4-md5',
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
