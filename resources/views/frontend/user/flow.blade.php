@@ -19,6 +19,8 @@
                 <thead>
                 <tr>
                     <th data-field="date">日期</th>
+                    <th data-field="down">下载</th>
+                    <th data-field="up">上传</th>
                     <th data-field="flow">总流量值</th>
                     {{--<th data-field="reset_time">最后使用时间</th>--}}
                 </tr>
@@ -28,6 +30,8 @@
                 @foreach($flows as $flow)
                     <tr>
                         <td>{{ date('Y-m-d',strtotime($flow->created_at))  }}</td>
+                        <td>{{\App\Helpers\Tools::flowAutoShow($flow->down)}}</td>
+                        <td>{{\App\Helpers\Tools::flowAutoShow($flow->up)}}</td>
                         <td>{{\App\Helpers\Tools::flowAutoShow($flow->flow)}}</td>
                     </tr>
                 @endforeach

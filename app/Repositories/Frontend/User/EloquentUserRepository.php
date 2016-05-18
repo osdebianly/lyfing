@@ -75,27 +75,25 @@ class EloquentUserRepository implements UserContract
     {
         if ($provider) {
             $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => null,
+                'name'              => $data['name'],
+                'email'             => $data['email'],
+                'password'          => null,
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed' => 1,
-                'status' => 1,
-                'passwd' => $data['password'],
-                'port' => Tools::getPort(),
-                'transfer_enable' => env('INIT_FLOW', 1073741824)
+                'confirmed'         => 1,
+                'status'            => 1,'passwd' => str_random ( 10 ),
+                'port'              => Tools::getPort(),
+                'transfer_enable'   => env('INIT_FLOW', 1073741824)
             ]);
         } else {
             $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
+                'name'              => $data['name'],
+                'email'             => $data['email'],
+                'password'          => bcrypt($data['password']),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed' => config('access.users.confirm_email') ? 0 : 1,
-                'status' => 1,
-                'passwd' => $data['password'],
-                'port' => Tools::getPort(),
-                'transfer_enable' => env('INIT_FLOW', 1073741824)
+                'confirmed'         => config('access.users.confirm_email') ? 0 : 1,
+                'status'            => 1,'passwd' => str_random ( 10 ),
+                'port'              => Tools::getPort(),
+                'transfer_enable'   => env('INIT_FLOW', 1073741824)
             ]);
         }
 

@@ -27,6 +27,8 @@ class Flow extends Model
             }
             $tmp_flow = clone $flow;
             $flow->flow = $endDay->flow - $flow->flow;
+            $flow->up = $endDay->up - $flow->up;
+            $flow->down = $endDay->down - $flow->down;
             $flowsLog[] = $flow;
             $endDay = $tmp_flow;
         }

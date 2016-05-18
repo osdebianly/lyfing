@@ -20,15 +20,15 @@ class EventServiceProvider extends ServiceProvider
         /**
          * Authentication Events
          */
-        \App\Events\Frontend\Auth\UserLoggedIn::class  => [
+        \App\Events\Frontend\Auth\UserLoggedIn::class   => [
             \App\Listeners\Frontend\Auth\UserLoggedInListener::class,
         ],
-        \App\Events\Frontend\Auth\UserLoggedOut::class => [
+        \App\Events\Frontend\Auth\UserLoggedOut::class  => [
             \App\Listeners\Frontend\Auth\UserLoggedOutListener::class,
         ],
         \App\Events\Frontend\Auth\UserRegistered::class => [
             \App\Listeners\Frontend\Auth\UserRegisteredListener::class,
-        ],
+        ],\App\Events\IpWasChanged::class               => [ \App\Listeners\IpWasChangedListener::class, ],
     ];
 
     /**

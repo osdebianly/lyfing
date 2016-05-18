@@ -12,6 +12,7 @@ Homestead.json
 /public/js/frontend.js.map
 /public/js/backend.js
 /public/js/backend.js.map
+/public/build
 
 .DS_Store
 Thumbs.db
