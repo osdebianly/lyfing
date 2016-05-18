@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Frontend\User;
+namespace App\Repositories\Frontend\Access\User;
 
 use App\Helpers\Tools;
 use App\Models\Access\User\User;
@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Mail;
 use App\Exceptions\GeneralException;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Access\User\SocialLogin;
-use App\Repositories\Backend\Role\RoleRepositoryContract;
+use App\Repositories\Backend\Access\Role\RoleRepositoryContract;
 
 /**
  * Class EloquentUserRepository
  * @package App\Repositories\Frontend\User
  */
-class EloquentUserRepository implements UserContract
+class EloquentUserRepository implements UserRepositoryContract
 {
 
     /**
@@ -138,7 +138,7 @@ class EloquentUserRepository implements UserContract
         if (! $user) {
             $user = $this->create([
                 'name'  => $data->name,
-                'email' => $data->email,
+                'email' => $data->email ? : "{$data->id}@{$provider}.com",
             ], true);
         }
 
@@ -152,7 +152,17 @@ class EloquentUserRepository implements UserContract
             $user->providers()->save(new SocialLogin([
                 'provider'    => $provider,
                 'provider_id' => $data->id,
+                'token'       => $data->token,
+                'avatar'      => $data->avatar,
             ]));
+        }else{
+             /**
+             * Update the users information, token and avatar can be updated.
+             */
+            $user->providers()->update([
+                'token'       => $data->token,
+                'avatar'      => $data->avatar,
+            ]);
         }
 
         /**
@@ -199,12 +209,12 @@ class EloquentUserRepository implements UserContract
     }
 
     /**
-     * @param $token
+     * @param $user_id
      * @return mixed
      * @throws GeneralException
      */
-    public function resendConfirmationEmail($token) {
-        return $this->sendConfirmationEmail($this->findByToken($token));
+    public function resendConfirmationEmail($user_id) {
+        return $this->sendConfirmationEmail($this->find($user_id));
     }
 
     /**

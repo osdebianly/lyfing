@@ -43,8 +43,8 @@ return [
                 'all' => 'Todos los Usuarios',
                 'change-password' => 'Cambiar la contraseña',
                 'create' => 'Nuevo Usuario',
-                'deactivated' => 'Usuarios desactivados',
-                'deleted' => 'Usuarios eliminados',
+                'deactivated' => 'Usuarios Desactivados',
+                'deleted' => 'Usuarios Eliminados',
                 'edit' => 'Modificar Usuario',
                 'main' => 'Usuario',
             ],
@@ -71,6 +71,7 @@ return [
          * Be sure to add the new language in alphabetical order.
          */
         'langs' => [
+            'da' => 'Danés (Danish)',
             'de' => 'Alemán (German)',
             'en' => 'Inglés (English)',
             'es' => 'Español (Spanish)',

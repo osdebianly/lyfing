@@ -1,4 +1,4 @@
-@inject('roles', 'App\Repositories\Backend\Role\RoleRepositoryContract')
+@inject('roles', 'App\Repositories\Backend\Access\Role\RoleRepositoryContract')
 
 @extends ('backend.layouts.master')
 
@@ -239,7 +239,7 @@
             else{
                 history.pushState("", document.title, window.location.pathname+ window.location.search);
             }
-        })
+        });
 
         $(function() {
 

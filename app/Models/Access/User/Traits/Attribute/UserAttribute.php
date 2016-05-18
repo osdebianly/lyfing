@@ -40,7 +40,17 @@ trait UserAttribute
      */
     public function getPictureAttribute()
     {
-        return gravatar()->get($this->email, ['size' => 50]);
+        return $this->getPicture();
+    }
+
+    /**
+     * @param bool $size
+     * @return mixed
+     */
+    public function getPicture($size = false)
+    {
+        if (! $size) $size = config('gravatar.default.size');
+        return gravatar()->get($this->email, ['size' => $size]);
     }
 
     /**
@@ -53,7 +63,6 @@ trait UserAttribute
             if ($p->provider == $provider) {
                 return true;
             }
-
         }
 
         return false;
@@ -145,7 +154,12 @@ trait UserAttribute
     public function getDeleteButtonAttribute()
     {
         if (access()->allow('delete-users')) {
-            return '<a href="' . route('admin.access.users.destroy', $this->id) . '" data-method="delete" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.delete') . '"></i></a>';
+            return '<a href="' . route('admin.access.users.destroy', $this->id) . '"
+                 data-method="delete"
+                 data-trans-button-cancel="'.trans('buttons.general.cancel').'"
+                 data-trans-button-confirm="'.trans('buttons.general.crud.delete').'"
+                 data-trans-title="'.trans('strings.backend.general.are_you_sure').'"
+                 class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.delete') . '"></i></a>';
         }
 
         return '';
