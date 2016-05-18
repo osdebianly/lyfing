@@ -22,7 +22,8 @@
             <ul class="nav navbar-nav">
                 <li>{!! link_to_route('frontend.index', trans('navs.frontend.home')) !!}</li>
                 <li>{!! link_to_route('frontend.client',trans('navs.frontend.client')) !!}</li>
-                <li>{!! link_to_route('frontend.code',trans('navs.frontend.code')) !!}</li>
+                <li>{!! link_to_route('frontend.finalspeed',trans('navs.frontend.finalspeed')) !!}</li>
+                {{--<li>{!! link_to_route('frontend.code',trans('navs.frontend.code')) !!}</li>--}}
                 {{--                <li>{!! link_to_route('frontend.macros', trans('navs.frontend.macros')) !!}</li>--}}
             </ul>
 
@@ -51,8 +52,8 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li>{!! link_to_route('frontend.user.dashboard', trans('navs.frontend.dashboard')) !!}</li>
-
+                            {{--<li>{!! link_to_route('frontend.user.dashboard', trans('navs.frontend.dashboard')) !!}</li>--}}
+                            <li>{!! link_to_route('frontend.user.index', trans('navs.frontend.user.manage')) !!}</li>
                             @if (access()->user()->canChangePassword())
                                 <li>{!! link_to_route('auth.password.change', trans('navs.frontend.user.change_password')) !!}</li>
                             @endif

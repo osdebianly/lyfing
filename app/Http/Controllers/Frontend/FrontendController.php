@@ -52,4 +52,11 @@ class FrontendController extends Controller
         $codes = InviteCode::getPublicCode();
         return view('frontend.code', ['codes' => $codes]);
     }
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function finalSpeed()
+    {
+        return view('frontend.finalspeed' );
+    }
 }

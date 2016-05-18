@@ -14,26 +14,28 @@ return [
     */
 
     'backend' => [
-        'button' => 'Button',
+        'button' => '按钮',
     ],
 
     'general' => [
-        'logout' => 'Logout',
+        'logout' => '注销',
     ],
 
     'frontend' => [
-        'dashboard' => 'Dashboard',
+        'dashboard' => '仪表盘',
         'home' => '首页',
         'client' => '客户端',
         'code' => '邀请码',
         'login' => '登陆',
         'macros' => 'Macros',
         'register' => '注册',
+        'finalspeed' => 'FS 加速',
 
         'user' => [
-            'administration' => 'Administration',
-            'change_password' => 'Change Password',
-            'my_information' => 'My Information',
+            'administration' => '管理员',
+            'change_password' => '修改密码',
+            'my_information' => '个人信息',
+            'manage' =>'管理后台',
         ],
     ],
 ];

@@ -7,6 +7,7 @@ Route::get('/', 'FrontendController@index')->name('frontend.index');
 Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
 Route::get('client', 'FrontendController@client')->name('frontend.client');
 Route::get('code', 'FrontendController@code')->name('frontend.code');
+Route::get('finalspeed', 'FrontendController@finalSpeed')->name('frontend.finalspeed');
 
 
 /**
@@ -21,7 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/', 'UserController@index');
+        Route::get('/', 'UserController@index')->name('frontend.user.index');
         Route::get('/index', 'UserController@index');
         Route::post('/checkin', 'UserController@checkin');
         Route::get('/profile', 'UserController@profile');
