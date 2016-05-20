@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/invite', 'UserController@invite');
         Route::post('/makeInviteCode', 'UserController@makeInviteCode');
         Route::get('/flow', 'UserController@flow');
+        Route::get('/download', 'UserController@download');
+        Route::post('/download', 'UserController@downloadCommand');
     });
 
 });

@@ -143,10 +143,25 @@
                         <i class="fa fa-align-left"></i> <span>网络流量</span>
                     </a>
                 </li>
+                <li>
+                    <a href="/user/download">
+                        <i class="fa fa-download"></i> <span>我的下载</span>
+                    </a>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
     </aside>
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     @yield('content')
 

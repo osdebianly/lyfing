@@ -6,11 +6,27 @@ use App\Models\User;
 use App\Models\InviteCode;
 use App\Models\Flow;
 //use Illuminate\Auth\Guard;
+//use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\Frontend\User\DownloadCommand ;
 use App\Http\Controllers\Controller;
 use App\Helpers\Tools;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
+use League\Flysystem\FileExistsException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
+
+
+use YoutubeDl\YoutubeDl;
+use YoutubeDl\Exception\CopyrightException;
+use YoutubeDl\Exception\NotFoundException;
+use YoutubeDl\Exception\PrivateVideoException;
+
+use Illuminate\Filesystem\Filesystem ;
 
 class UserController extends Controller
 {
@@ -242,5 +258,75 @@ class UserController extends Controller
         $this->user->save();
         $res['ret'] = 1;
         return $res;
+    }
+
+    /**
+     * Download
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function download(){
+        return view('frontend.user.download') ;
+    }
+
+    /**
+     * Exec download command , wget or you-get
+     * @param DownloadCommand $request
+     */
+    public function downloadCommand( DownloadCommand $request){
+
+        $url = $request->get('url') ;
+        $userPath = public_path($this->user->email) ;
+        $fileSystem = new Filesystem() ;
+        if(! $fileSystem->exists($userPath) ){
+            try{
+                $fileSystem->makeDirectory($userPath,0777,true,true) ;
+            }catch(Exception $e){
+
+            }
+
+        }
+
+
+
+        $dl = new YoutubeDl(['output' => '%(title)s.%(ext)s','continue' => true]);
+        $dl->setTimeout(600) ;
+        // For more options go to https://github.com/rg3/youtube-dl#user-content-options
+
+        $dl->setDownloadPath($userPath);
+
+        try {
+            $video = $dl->download($url);
+            dd($video) ;
+            //echo $video->getTitle(); // Will return Phonebloks
+        //     $dl->getFile(); // \SplFileInfo instance of downloaded file
+        } catch (NotFoundException $e) {
+
+            // Video not found
+        } catch (PrivateVideoException $e) {
+
+            // Video is private
+        } catch (CopyrightException $e) {
+            
+            // The YouTube account associated with this video has been terminated due to multiple third-party notifications of copyright infringement
+        } catch (\Exception $e) {
+
+            // Failed to download
+        }
+
+        //$return =['error'=>1,'error_message'=>''] ;
+        //$url = $request->get('url') ;
+        //$command = "youtube-dl -F -J ".$url ;
+        //$process = new Process($command);
+        //$process->setTimeout(600) ;
+        //$process->start() ;
+        //$process->wait(function($type, $buffer) {
+        //
+        //});
+        //
+        //if (!$process->isSuccessful()) {
+        //    return $process->getErrorOutput();
+        //}
+        //return $process->getOutput() ;
+
     }
 }
