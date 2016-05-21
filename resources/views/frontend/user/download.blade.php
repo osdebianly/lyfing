@@ -19,52 +19,100 @@
 
         <div class="row">
             <div class="col-md-6">
-
-                <form class="form-horizontal" method="post" v-on:submit.prevent="queryInfo">
-
-                    <br>
-                    <div class="control-group">
-                        <label class="control-label" for="inputURL">下载URL :</label>
-                        <div class="control" id="inputURL">
-                            <input type="text" name="url" v-model="url" class="btn-block" id="inputURL" placeholder="这里输入要下载的资源完整URL">
-                        </div>
-                    </div>
-                    <br><br>
-                    <button type="submit" class="btn btn-block btn-success" >获取信息</button>
-                </form>
-                <br>
-                <br>
-
-                <div class="row-fluid">
-                    <div class="span12">
-                        <dl class="dl-horizontal">
-                            <dt>
-                                <em>注意</em>
-                            </dt>
-                            <dd>
-                                URL需要带http或https 协议，默认下载视频格式，视频文件使用<a href="https://github.com/soimort/you-get/wiki/中文说明"><em><strong>you-get</strong></em></a> 下载
-                            </dd>
-                            <dt>
-                                通知
-                            </dt>
-                            <dd>
-                                下载完成后，邮箱通知，保留30分钟（视下载队列和硬盘空间动态改变）
-                            </dd>
-
-                        </dl>
-                    </div>
+                <div class="alert alert-error" v-show="errorMsg">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <h4>
+                        警告!
+                    </h4>  @{{errorMsg}}
                 </div>
+                <div class="alert alert-warning" v-show="! url">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <h4>
+                        提示!
+                    </h4> 请输入要下载的视频
+                </div>
+
+                <form  v-on:submit.prevent="queryInfo">
+                    <div class="form-group">
+                        <label for="inputURL">URL</label>
+                        <input type="text" class="form-control" name="url" v-model="url"  id="inputURL" placeholder="这里输入要下载的资源完整URL">
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <button type="submit" class="btn btn-block btn-success" >获取视频信息</button>
+                    </div>
+                </form>
+
+                <br><br>
                 <div class="row">
                     <div class="col-md-12">
-                        <label >视频网站:</label>@{{videoHost}}
-
-                        <label >视频标题:</label>@{{videoTitle}}
+                        <form>
+                            <div class="form-group">
+                                <label for="videoHost">视频网站</label>
+                                <input type="text" class="form-control" id="videoHost" placeholder="Youtube" value="@{{ videoHost }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoTitle">视频标题</label>
+                                <input type="text" class="form-control" id="videoTitle" placeholder="Title" value="@{{ videoTitle }}" readonly>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" v-show="canDownload">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-block btn-warning" v-on:click="beginDownload">开始下载视频</button>
                     </div>
                 </div>
 
+                <div class="row" v-show="!canDownload && url">
+                    <div class="col-md-12">
+                        <div class="progress progress-striped">
+                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="1"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: @{{processBar}}%">
+                                <span class="sr-only">Transfer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3><strong>我的下载</strong></h3>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>
+                                   文件名
+                                </th>
+                                <th>
+                                  大小
+                                </th>
+                                <th>
+                                    操作
+                                </th>
+                          </tr>
+                            </thead>
+                            <tbody>
+                           @foreach($files as $file)
+                               <tr>
+                                    <th>{{$file['title']}}</th>
+                                    <th>{{$file['size']}}</th>
+                                    <th>
+                                        <a class="btn btn-success" href="{{$file['path']}}">下载</a>
+                                        <a class="btn btn-danger" href="download/delete/{{$file['title']}}">删除</a>
+                                    </th>
+                                </tr>
+                           @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+
+
             <div class="col-md-6">
+                <p class="text-danger text-center" >默认下载视频最佳质量，并扣除相应流量</p>
                 <h3 class="text-danger text-center">
                     支持视频列表
                 </h3>
@@ -567,42 +615,55 @@
 </div>
 <script>
 
-
     $(function(){
+
+
         var vm = new Vue({
             el: '#app',
             data:{
-                fileType:'checked',
+                errorMsg:'',
                 url:'',
-                videoHost:'',
-                videoTitle:''
-
-
+                videoHost:'Youtube',
+                videoTitle:'Youtube Title',
+                canDownload:false,
+                processBar:5
             },
             methods:{
                 queryInfo: function(){
-                    console.log('url'+this.url) ;
-                    this.$http.post('/user/download',{url:this.url}).then(function (response) {
-
-                        // get status
-                        response.status;
-
-                        // get all headers
-                        response.headers();
-
-                        // get 'expires' header
-                        response.headers('expires');
-
+                    this.$http.post('/user/download',{url:this.url,download:0}).then(function (response) {
                         // set data on vm
-                        this.$set('videoHost', response.data.extractor) ;
-                        this.$set('videoTitle', response.data.title) ;
                         console.log(response) ;
+                        if(response.data.error){
+                            this.$set('errorMsg',response.data.error_message) ;
+                            return ;
+                        }
+                        result = JSON.parse(response.data.error_message) ;
+                        this.videoHost =  result.extractor ;
+                        this.videoTitle = result.title ;
+                        this.errorMsg = '' ;
+                        this.canDownload = true ;
                     }, function (response) {
-
-                        // error callback
                         console.log(response) ;
-                        alert('请求出错') ;
+                        this.$set('errorMsg',response.data.url) ;
                     });
+                },
+                beginDownload:function () {
+                    this.canDownload = false ;
+
+                    this.$http.post('/user/download',{url:this.url,download:1}).then(function (response) {
+                        console.log(response) ;
+                        window.location.reload() ;
+                    }, function (response) {
+                        console.log(response) ;
+                        this.$set('errorMsg',response.data.url) ;
+                    });
+                    //todo触发弹层，进度条提示
+                    setInterval(function () {
+                        vm.processBar = vm.processBar + 2   ;
+                        if(vm.processBar > 99){
+                            vm.processBar = 5 ;
+                        }
+                    },1000) ;
                 }
             }
 

@@ -25,7 +25,8 @@ class DownloadCommand extends Request
     {
 
         return [
-            'url' => 'string|url'
+            'url' => 'string|url',
+            'download'=>'in:0,1'
         ];
 
     }

@@ -265,7 +265,23 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function download(){
-        return view('frontend.user.download') ;
+        $userPath = public_path($this->user->email) ;
+        $fileSystem = new Filesystem() ;
+        $files = [] ;
+        if( $fileSystem->exists($userPath) ){
+            $allFiles = $fileSystem->files($userPath) ;
+            foreach ($allFiles as $tmpFils){
+
+                $name = $fileSystem->name($tmpFils) ;
+                $ext = $fileSystem->extension($tmpFils) ;
+                $title = $name.'.'.$ext ;
+                $size = Tools::flowAutoShow($fileSystem->size($tmpFils)) ;
+                $path = url(strstr($tmpFils,$this->user->email)) ;
+                $files[] = compact(['title','size','path']) ;
+            }
+        }
+
+        return view('frontend.user.download',['files'=>$files]) ;
     }
 
     /**
@@ -273,60 +289,63 @@ class UserController extends Controller
      * @param DownloadCommand $request
      */
     public function downloadCommand( DownloadCommand $request){
-
+        $videoInfo = ['error'=>0,'error_message'=>''] ;
         $url = $request->get('url') ;
+        $type = (int)$request->get('download') ;
+        //查询
+        if($type ==0){
+            $command = "youtube-dl -F -J ".$url ;
+            $process = new Process($command);
+            $process->start() ;
+            $process->wait(function($type, $buffer) {
+            });
+            if (!$process->isSuccessful()) {
+                $videoInfo['error'] = 1 ;
+                $videoInfo['error_message'] = $process->getErrorOutput();
+                return $videoInfo ;
+            }
+            $videoInfo['error_message'] = $process->getOutput() ;
+            return $videoInfo ;
+        }
+        //下载
         $userPath = public_path($this->user->email) ;
         $fileSystem = new Filesystem() ;
         if(! $fileSystem->exists($userPath) ){
             try{
                 $fileSystem->makeDirectory($userPath,0777,true,true) ;
             }catch(Exception $e){
-
+                throw new \RuntimeException('can\'t delete directory: '.$e);
             }
-
         }
-
-
-
-        $dl = new YoutubeDl(['output' => '%(title)s.%(ext)s','continue' => true]);
-        $dl->setTimeout(600) ;
-        // For more options go to https://github.com/rg3/youtube-dl#user-content-options
-
-        $dl->setDownloadPath($userPath);
-
+        $benginDownloadTime = time() ;
         try {
-            $video = $dl->download($url);
-            dd($video) ;
-            //echo $video->getTitle(); // Will return Phonebloks
-        //     $dl->getFile(); // \SplFileInfo instance of downloaded file
-        } catch (NotFoundException $e) {
-
-            // Video not found
-        } catch (PrivateVideoException $e) {
-
-            // Video is private
-        } catch (CopyrightException $e) {
-            
-            // The YouTube account associated with this video has been terminated due to multiple third-party notifications of copyright infringement
+            $command = "cd ".$userPath."&& youtube-dl  ".$url ;
+            $process = new Process($command);
+            $process->setTimeout(600) ;
+            $process->start() ;
+            $process->wait(function($type, $buffer) {
+            });
+            if (!$process->isSuccessful()) {
+                $videoInfo['error'] = 1 ;
+                $videoInfo['error_message'] = $process->getErrorOutput();
+            }
+            $videoInfo['error_message'] = $process->getOutput() ;
         } catch (\Exception $e) {
-
-            // Failed to download
+            $videoInfo['error'] = 1 ;
+            $videoInfo['error_message'] = $e ;
+        } finally {
+            //减掉用户流量
+            $allFiles = $fileSystem->files($userPath) ;
+            $totalSize = 0 ;
+            foreach ($allFiles as $tmpFils){
+                $lastModified = $fileSystem->lastModified($tmpFils) ;
+                if($lastModified > $benginDownloadTime){
+                    $totalSize += $fileSystem->size($tmpFils) ;
+                }
+            }
+            $this->user->transfer_enable = $this->user->transfer_enable - $totalSize;
+            $this->user->save();
         }
-
-        //$return =['error'=>1,'error_message'=>''] ;
-        //$url = $request->get('url') ;
-        //$command = "youtube-dl -F -J ".$url ;
-        //$process = new Process($command);
-        //$process->setTimeout(600) ;
-        //$process->start() ;
-        //$process->wait(function($type, $buffer) {
-        //
-        //});
-        //
-        //if (!$process->isSuccessful()) {
-        //    return $process->getErrorOutput();
-        //}
-        //return $process->getOutput() ;
-
+        return $videoInfo ;
     }
 }

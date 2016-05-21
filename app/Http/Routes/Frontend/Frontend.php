@@ -35,6 +35,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/flow', 'UserController@flow');
         Route::get('/download', 'UserController@download');
         Route::post('/download', 'UserController@downloadCommand');
+        Route::get('/download/delete/{file}', function($file,\Illuminate\Filesystem\Filesystem $filesystem){
+            $filePath = public_path(access()->user()->email.'/'.$file) ;
+            if($filesystem->exists($filePath)){
+                $filesystem->delete($filePath)  ;
+            }
+            return back() ;
+        });
+
     });
 
 });
