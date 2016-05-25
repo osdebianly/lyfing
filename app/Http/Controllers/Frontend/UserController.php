@@ -14,18 +14,9 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Tools;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
-use League\Flysystem\FileExistsException;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+
+
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
-
-
-use YoutubeDl\YoutubeDl;
-use YoutubeDl\Exception\CopyrightException;
-use YoutubeDl\Exception\NotFoundException;
-use YoutubeDl\Exception\PrivateVideoException;
-
 use Illuminate\Filesystem\Filesystem ;
 
 class UserController extends Controller
