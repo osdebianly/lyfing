@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 
 
+use League\Flysystem\FileExistsException;
 use Symfony\Component\Process\Process;
 use Illuminate\Filesystem\Filesystem ;
 
@@ -338,5 +339,21 @@ class UserController extends Controller
             $this->user->save();
         }
         return $videoInfo ;
+    }
+
+    /**
+     * 删除文件
+     * @param $file
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteDownloadFile( $file){
+
+        $filesystem = new Filesystem() ;
+        $filePath = public_path(access()->user()->email.'/'.$file) ;
+        if($filesystem->exists($filePath)){
+            $filesystem->delete($filePath)  ;
+        }
+        return back() ;
     }
 }
