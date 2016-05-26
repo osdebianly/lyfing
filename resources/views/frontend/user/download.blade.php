@@ -44,20 +44,18 @@
                 </form>
 
                 <br><br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <form>
-                            <div class="form-group">
-                                <label for="videoHost">视频网站</label>
-                                <input type="text" class="form-control" id="videoHost" placeholder="Youtube" value="@{{ videoHost }}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="videoTitle">视频标题</label>
-                                <input type="text" class="form-control" id="videoTitle" placeholder="Title" value="@{{ videoTitle }}" readonly>
-                            </div>
-                        </form>
-                    </div>
+
+                <div class="col-md-12 column">
+                    <h2>
+                        视频文件列表
+                    </h2>
+                    <p id="videoOutput">
+
+                    </p>
+                    <br>
+                    <br>
                 </div>
+
                 <div class="row" v-show="canDownload">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-block btn-warning" v-on:click="beginDownload">开始下载视频</button>
@@ -623,10 +621,8 @@
             data:{
                 errorMsg:'',
                 url:'',
-                videoHost:'Youtube',
-                videoTitle:'Youtube Title',
                 canDownload:false,
-                processBar:5
+                processBar:1
             },
             methods:{
                 queryInfo: function(){
@@ -637,9 +633,8 @@
                             this.$set('errorMsg',response.data.error_message) ;
                             return ;
                         }
-                        result = JSON.parse(response.data.error_message) ;
-                        this.videoHost =  result.extractor ;
-                        this.videoTitle = result.title ;
+                        //this.$set('videoOutput',  response.data.error_message) ;
+                        $("#videoOutput").html(response.data.error_message) ;
                         this.errorMsg = '' ;
                         this.canDownload = true ;
                     }, function (response) {
