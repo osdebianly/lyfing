@@ -42,7 +42,7 @@ class IpWasChangedListener
                    $message->to($user->email);
                });
                Log::info( 'has send email to '.$user->email) ;
-               dd($user->email) ;
+
            }
             echo  'skip '. $user->email.PHP_EOL ;
             sleep(1) ;
