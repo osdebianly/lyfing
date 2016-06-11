@@ -55,6 +55,9 @@
                     </li>
                 </ul>
             </li>
+            <li class="{{ Active::pattern('admin/flow') }}">
+                <a href="{!! route('admin.flow') !!}"><span>{{ trans('menus.backend.sidebar.flow') }}</span></a>
+            </li>
 
         </ul><!-- /.sidebar-menu -->
     </section>

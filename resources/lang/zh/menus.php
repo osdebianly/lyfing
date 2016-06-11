@@ -59,6 +59,7 @@ return [
         'sidebar' => [
             'dashboard' => 'Dashboard',
             'general' => 'General',
+            'flow' => '流量管理',
         ],
     ],
 

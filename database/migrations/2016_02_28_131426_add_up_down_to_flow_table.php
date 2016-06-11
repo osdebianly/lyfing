@@ -13,8 +13,8 @@ class AddUpDownToFlowTable extends Migration
     public function up()
     {
         Schema::table('flows', function (Blueprint $table) {
-            $table->bigInteger('up')->default(0);   //上传流量
-            $table->bigInteger('down')->default(0);   //下载流量
+            //$table->bigInteger('up')->default(0);   //上传流量
+            //$table->bigInteger('down')->default(0);   //下载流量
         });
     }
 
