@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'name' => 'Laravel 5 Bootstrap',
+    'name' => 'Lyfing',
 
     /*
     |--------------------------------------------------------------------------
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -199,11 +199,12 @@ return [
          * QR code
          */
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
         /**
          * debug
          */
         Recca0120\LaravelTracy\ServiceProvider::class,
-
+        
     ],
 
     /*
@@ -219,7 +220,7 @@ return [
 
     'aliases' => [
 
-        'App'       => Illuminate\Support\Facades\App::class,
+        'App'         => Illuminate\Support\Facades\App::class,
         'Artisan'   => Illuminate\Support\Facades\Artisan::class,
         'Auth'      => Illuminate\Support\Facades\Auth::class,
         'Blade'     => Illuminate\Support\Facades\Blade::class,
@@ -248,7 +249,7 @@ return [
         'Storage'   => Illuminate\Support\Facades\Storage::class,
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View'      => Illuminate\Support\Facades\View::class,
+        'View'        => Illuminate\Support\Facades\View::class,
 
         /*
          * Third Party Aliases
@@ -258,7 +259,6 @@ return [
         'Form'        => Collective\Html\FormFacade::class,
         'Gravatar'    => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Html'        => Collective\Html\HtmlFacade::class,
-        'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
+        'Socialite'   => Laravel\Socialite\Facades\Socialite::class,'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ],
 ];

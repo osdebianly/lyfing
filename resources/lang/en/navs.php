@@ -23,12 +23,12 @@ return [
 
     'frontend' => [
         'dashboard' => 'Dashboard',
-        'home' => 'Home',
-        'client' => 'Client Download',
-        'code' => 'Invite Code',
-        'login' => 'Login',
-        'macros' => 'Macros',
-        'register' => 'Register',
+        'home'      => 'Home',
+        'client'    => 'Client Download',
+        'code'      => 'Invite Code',
+        'login'     => 'Login',
+        'macros'    => 'Macros',
+        'register'  => 'Register','finalspeed' => 'FS',
 
         'user' => [
             'administration' => 'Administration',

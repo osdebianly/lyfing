@@ -15,8 +15,7 @@
         "hieu-le/active": "~2.0",
         "arcanedev/log-viewer": "~3.0",
         "spatie/laravel-backup": "^3.0",
-        "chellem/youtube-downloader": "dev-master",
-        "norkunas/youtube-dl-php": "^0.2.3"
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -62,5 +61,11 @@
     },
     "config": {
         "preferred-install": "dist"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
     }
 }
