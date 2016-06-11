@@ -176,4 +176,26 @@ trait UserAttribute
         $this->getConfirmedButtonAttribute() .
         $this->getDeleteButtonAttribute();
     }
+
+    /**
+     * @return string
+     */
+    public function getFlowActionButtonsAttribute()
+    {
+        return $this->getAddFlowButtonAttribute();
+
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddFlowButtonAttribute()
+    {
+        //if (access()->allow('edit-users')) {
+        return '<a href="' . route('admin.flow.edit', $this->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.edit') . '"></i></a> ';
+        //}
+
+
+    }
+
 }

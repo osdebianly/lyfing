@@ -198,7 +198,12 @@ return [
         /*
          * QR code
          */
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        /**
+         * debug
+         */
+        Recca0120\LaravelTracy\ServiceProvider::class,
+
     ],
 
     /*

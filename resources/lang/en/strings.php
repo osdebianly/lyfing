@@ -36,6 +36,10 @@ return [
             'title' => 'Administrative Dashboard',
             'welcome' => 'Welcome',
         ],
+        'flow' => [
+            'title' => 'Administrative Flow Manage',
+            'welcome' => 'Welcome',
+        ],
 
         'general' => [
             'all_rights_reserved' => 'All Rights Reserved.',

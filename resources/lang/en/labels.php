@@ -118,6 +118,8 @@ return [
                     'other_permissions' => 'Other Permissions',
                     'roles' => 'Roles',
                     'total' => 'user total|users total',
+                    'transfer_enable' => 'Total Flow',
+                    't' => 'Used Flow',
                 ],
             ],
         ],
