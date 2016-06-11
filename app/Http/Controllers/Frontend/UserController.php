@@ -14,18 +14,9 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Tools;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
-use League\Flysystem\FileExistsException;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+
+
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
-
-
-use YoutubeDl\YoutubeDl;
-use YoutubeDl\Exception\CopyrightException;
-use YoutubeDl\Exception\NotFoundException;
-use YoutubeDl\Exception\PrivateVideoException;
-
 use Illuminate\Filesystem\Filesystem ;
 
 class UserController extends Controller
@@ -294,7 +285,7 @@ class UserController extends Controller
         $type = (int)$request->get('download') ;
         //查询
         if($type ==0){
-            $command = "youtube-dl -F -J ".$url ;
+            $command = "youtube-dl --get-filename ".$url ;
             $process = new Process($command);
             $process->start() ;
             $process->wait(function($type, $buffer) {
@@ -304,7 +295,7 @@ class UserController extends Controller
                 $videoInfo['error_message'] = $process->getErrorOutput();
                 return $videoInfo ;
             }
-            $videoInfo['error_message'] = $process->getOutput() ;
+            $videoInfo['error_message'] = nl2br($process->getOutput()) ;
             return $videoInfo ;
         }
         //下载

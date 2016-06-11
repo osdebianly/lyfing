@@ -1,34 +1,81 @@
-## Laravel 5.* Boilerplate, Currently 5.2.29 [Screenshots](http://imgur.com/a/uEKuq)
+## Lyfing  
+Base on Laravel Boilerplate
 
-[![Latest Stable Version](https://poser.pugx.org/rappasoft/laravel-5-boilerplate/v/stable)](https://packagist.org/packages/rappasoft/laravel-5-boilerplate) [![Latest Unstable Version](https://poser.pugx.org/rappasoft/laravel-5-boilerplate/v/unstable)](https://packagist.org/packages/rappasoft/laravel-5-boilerplate)
+![主界面](/screenshot/screenshot_index.png?raw=true "Optional Title")
 
-### Laravel 5.1
 
-You can download the last stable build of Laravel 5.1 [here](https://github.com/rappasoft/laravel-5-boilerplate/tree/Legacy_5.1).
 
-### Introduction
+### 介绍
 
-Laravel Boilerplate provides you with a massive head start on any size web application. It comes with a full featured access control system out of the box with an easy to learn API and is built on a Twitter Bootstrap foundation with a front and backend architecture. We have put a lot of work into it and we hope it serves you well and saves you time!
+通过该应用可以分享[互联网](http://www.googel.com)自己给身边的朋友或者有需要的朋友
 
-### Wiki
 
-Please view the [wiki](https://github.com/rappasoft/laravel-5-boilerplate/wiki) for a list of [features](https://github.com/rappasoft/laravel-5-boilerplate/wiki#features) as well as [installation instructions](https://github.com/rappasoft/laravel-5-boilerplate/wiki/1.-Installation).
+### 手动安装
 
-### Issues
+#### 环境要求
+   * Ubuntu 14.04
+   * PHP 5.6 or 7
+   * supervisor
+   * Git
 
-If you come across any issues please [report them here](https://github.com/rappasoft/Laravel-5-Boilerplate/issues).
+#### 安装步骤
 
-### Contributing
+##### Step 0
+````
+apt-get update
+apt-get install -y git
+git clone https://github.com/osdebianly/osdebianly/lyfing.git
+cd lyfing
+````
 
-Thank you for considering contributing to the Laravel Boilerplate project! Please feel free to make any pull requests, or e-mail me a feature request you would like to see in the future to Anthony Rappa at rappa819@gmail.com.
+##### Step 1
 
-### Security Vulnerabilities
+开始熟悉的 [larave配置](http://laravelacademy.org/post/46.html) 
+熟悉请略过
+```
+php artisan serve --host 0.0.0.0 --port 80
 
-If you discover a security vulnerability within this boilerplate, please send an e-mail to Anthony Rappa at rappa819@gmail.com, or create a pull request if possible. All security vulnerabilities will be promptly addressed. Please reference [this page](https://github.com/rappasoft/laravel-5-boilerplate/wiki/7.-Security-Fixes) to make sure you are up to date.
+```
+##### Step 2
 
-### Donations
+ - 打开 http://your_ip ，正常情况下就可以看到页面了
+ - 初始化账号：
+ - 管理员： admin@admin.com     密码：admin
+ - 公共账号： public@public.com    密码:user
+ 
+ 如果无法打开，执行下面关闭iptables 试试
+``` 
+ iptables -P INPUT ACCEPT
+ iptables -P FORWARD ACCEPT
+ iptables -P OUTPUT ACCEPT
+ iptables -F
+ 
+```
 
-If you would like to help the continued efforts of this project, any size [donations](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JJWUZ4E9S9SFG&lc=US&item_name=Laravel%205%20Boilerplate&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted) are welcomed and highly appreciated.
+### 懒人必备一键安装
+
+首先还是要一下,然后切换到root 安装
+
+```
+su root
+
+./one_install.sh
+
+```
+
+漫长的等待...............
+
+
+#为什么叫lyfing
+
+我觉得[Lyfing](https://github.com/osdebianly/lyfing)更有逼格 
+![lyfing](/screenshot/rengxing.jpeg?raw=true "Optional Title")
+
+### 反馈
+
+移步到[这里](https://github.com/osdebianly/lyfing/issues).由于这个项目是业余时间维护,我不能保证一一满足
+![issue](/screenshot/xiangxin.jpeg?raw=true "Optional Title")
+
 
 ### License
 
